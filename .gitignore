@@ -3,3 +3,9 @@
 ################################################################################
 
 /.vs/DotNetDevTips/FileContentIndex
+/.vs
+/DotNetDevDB/obj
+/DotNetDevWebTips/obj
+/DotNetDevTips/obj
+/DotNetDevDB/bin/Debug/net9.0
+/DotNetDevWebTips/bin/Debug/net9.0
