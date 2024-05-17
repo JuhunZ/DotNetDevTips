@@ -9,3 +9,11 @@
 /DotNetDevTips/obj
 /DotNetDevDB/bin/Debug/net9.0
 /DotNetDevWebTips/bin/Debug/net9.0
+/TestProject/bin
+/TestProject/obj
+/DotNetDevWebTips/bin/Release/net9.0
+/DotNetDevTips/bin
+/DotNetDevDB/bin/Release/net9.0
+/BenchMark/bin
+/BenchMark/obj
+/BenchMark/Properties/PublishProfiles
