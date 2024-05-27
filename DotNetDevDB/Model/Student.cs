@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace DotNetDevDB.Model {
     [Table("Students")]
     public class Student {
+
         /// <summary>
         /// 编号
         /// </summary>

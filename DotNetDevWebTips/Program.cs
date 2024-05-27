@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using DotNetDevDB;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 //将所有控制器加上ApiController特性,加上后所有控制器(不止接口)都要加rote特性
 //[assembly: ApiController]
 
@@ -32,7 +33,9 @@ builder.Services.AddSwaggerGen(c => {
 
 builder.Services.AddDbContextPool<ModelContext>(
     o => o.UseSqlServer(builder.Configuration.GetConnectionString("ModelContext"))
-    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking).EnableThreadSafetyChecks(false));
+    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking).EnableThreadSafetyChecks(false)
+    .LogTo(message => Log.Logger.Error(message), (p, s) => s != LogLevel.Error)
+    );
 
 var app = builder.Build();
 

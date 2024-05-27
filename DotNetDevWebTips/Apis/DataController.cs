@@ -15,10 +15,14 @@ namespace DotNetDevWebTips.Apis {
 
         [HttpGet]
         public async Task<ActionResult> Index([FromServices]ModelContext modelContext) {
-            return new JsonResult(modelContext.Set<Student>().FirstOrDefault());
+                var blogs = modelContext.Blogs
+                    .Join(modelContext.Students, p => p.BlogId, u => u.Id,(p, u) => new {p,u })
+                    .AsSplitQuery()
+                    .ToList();
+            return new JsonResult(modelContext.Set<Student>().First());
         }
 
-
+        [Swashbuckle.AspNetCore.Annotations.SwaggerIgnore]
         public async Task<int> GetCompile([FromServices] ModelContext modelContext) {
             var idSum = 0;
             await foreach (var blog in _compiledQuery(modelContext)) {
@@ -27,10 +31,10 @@ namespace DotNetDevWebTips.Apis {
             return idSum;
         }
 
+        [Swashbuckle.AspNetCore.Annotations.SwaggerIgnore]
         public async Task<int> GetCommon([FromServices] ModelContext modelContext) {
             var idSum = 0;
-            foreach (var item in await modelContext.Students.Where(b => b.Name.StartsWith("张")).ToListAsync())
-            {
+            foreach (var item in await modelContext.Students.Where(b => b.Name.StartsWith("张")).ToListAsync()) {
                 idSum += item.Id;
             }
             return idSum;
