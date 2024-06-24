@@ -18,6 +18,10 @@ namespace DotNetDevDB.Model {
         /// </summary>
         public string FirstName { get; set; }
         /// <summary>
+        /// 
+        /// </summary>
+        public string? LastName { get; set; }
+        /// <summary>
         /// 艺名
         /// </summary>
         public string Name { get; set; }
@@ -25,10 +29,19 @@ namespace DotNetDevDB.Model {
         /// 年龄
         /// </summary>
         public int Age { get; set; }
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public Gender? Gender { get; set; }
         ///// <summary>
         ///// 🐖猪
         ///// </summary>
         //[NotMapped]
         //public DateTime Code { get; set; }
+    }
+
+    public enum Gender {
+        Male,
+        Female
     }
 }

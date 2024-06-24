@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LogDashboard" Version="1.4.8" />
+    <PackageReference Include="Bogus" Version="35.5.1" />
+    <PackageReference Include="LogDashboard_Core" Version="1.4.8.10" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.6.14" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.2-dev-00338" />
