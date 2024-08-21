@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BenchMark", "BenchMark\BenchMark.csproj", "{ABED6477-952C-4E02-A768-D0C309F8BD4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppHost", "AppHost\AppHost.csproj", "{93360A36-E8CC-40E0-91EB-1CC27E23F3E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{ABED6477-952C-4E02-A768-D0C309F8BD4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABED6477-952C-4E02-A768-D0C309F8BD4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABED6477-952C-4E02-A768-D0C309F8BD4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93360A36-E8CC-40E0-91EB-1CC27E23F3E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93360A36-E8CC-40E0-91EB-1CC27E23F3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93360A36-E8CC-40E0-91EB-1CC27E23F3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93360A36-E8CC-40E0-91EB-1CC27E23F3E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

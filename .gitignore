@@ -17,3 +17,5 @@
 /BenchMark/bin
 /BenchMark/obj
 /BenchMark/Properties/PublishProfiles
+/AppHost/bin/Debug/net8.0
+/AppHost/obj

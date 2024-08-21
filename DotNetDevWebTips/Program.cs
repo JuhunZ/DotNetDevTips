@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Hosting;
 using System.Text;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 //将所有控制器加上ApiController特性,加上后所有控制器(不止接口)都要加rote特性
 //[assembly: ApiController]
 
@@ -29,8 +31,12 @@ builder.Services.AddLogDashboard();
 //builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen(c => {
-    c.SwaggerDoc("Demo", new OpenApiInfo { Title = "My API", Version = "v1" });
-    c.SwaggerDoc("Data", new OpenApiInfo { Title = "My API", Version = "v1" });
+    c.SwaggerDoc("Demo", new OpenApiInfo { Title = "My API", Version = "v10" });
+    c.SwaggerDoc("Data", new OpenApiInfo { Title = "My API", Version = "v10" });
+    //var list = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml");
+    //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+    Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.xml")
+                .ToList().ForEach(f => c.IncludeXmlComments(f, true));
 });
 
 builder.Services.AddDbContextPool<ModelContext>(

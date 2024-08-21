@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using Dapper;
 using DotNetDevDB;
 using DotNetDevDB.Model;
 using EFCore.BulkExtensions;
@@ -19,6 +20,24 @@ namespace DotNetDevWebTips.Apis {
         [HttpGet]
         public async Task<IActionResult> Bulk([FromServices] ModelContext modelContext) {
             try {
+
+                string connectionString = "Data Source=127.0.0.1,1433;Initial Catalog=FULLTIPLM;Persist Security Info=True;User ID=sa;password=123;TrustServerCertificate=true";
+                using (var connection = new SqlConnection(connectionString)) {
+
+                    //var r= connection.QueryFirst<userRecord>("select MAX(PLM_ITERATION) PLM_ITERATION from PLM_CUS_ROOTBI");
+                    //var docs=connection.q
+                    //var c = connection.Query<userRecord>("SELECT '张三' Name,1 Id union select '里斯' Name,2 Id");
+                    //var sql = """
+                    //    INSERT INTO PLM_BPM_R_SUBPROCESS select @SUBPROID, @PARPROID where not exists( SELECT 1 
+                    //    FROM PLM_BPM_R_SUBPROCESS SP 
+                    //    WHERE  SP.PLM_SUB_PROCESSOID = @SUBPROID 
+                    //    AND SP.PLM_PAR_PROCESSOID = @PARPROID)
+                    //    """;
+                    //connection.Execute(sql, new { SUBPROID=Guid.NewGuid().ToByteArray(), PARPROID = Guid.NewGuid().ToByteArray() });
+                    Console.WriteLine(1);
+                }
+
+
                 var r0 = modelContext.Blogs.Where(p => p.Url == "BLACK.COM").ToList();
                 var r1 = modelContext.Students.AsNoTracking().Where(p => true).ToList();
 
@@ -42,7 +61,6 @@ namespace DotNetDevWebTips.Apis {
             }
             return new JsonResult(new { statue = 1 });
         }
-
 
         [HttpGet]
         public async Task<ActionResult> Index([FromServices] ModelContext modelContext) {
@@ -109,16 +127,24 @@ namespace DotNetDevWebTips.Apis {
         [HttpGet]
         public ActionResult<object> Demo() {
 
-            Stu stu = new Stu();
-            var rs = Newtonsoft.Json.JsonConvert.DeserializeObject(Newtonsoft.Json.JsonConvert.SerializeObject(new { ss = stu }));
-            Task.FromResult(a);
-            return CreatedAtAction(nameof(DDGet), new { id = 1 }, new Stu() {  name="哈哈哈"});
-            return new JsonResult(new { ss = stu });
+            try {
+                Stu stu = new Stu();
+                var rs = Newtonsoft.Json.JsonConvert.DeserializeObject(Newtonsoft.Json.JsonConvert.SerializeObject(new { ss = stu }));
+                Task.FromResult(a);
+                return CreatedAtAction(nameof(DDGet), new { id = 1 }, new Stu() { name = "哈哈哈" });
+            } finally {
+                Console.WriteLine("嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻嘻 ");
+            }
         }
 
         [HttpGet]
         public ActionResult<Stu> DDGet(int id) {
             return new Stu() { name = id + "" };
+        }
+
+        [HttpPost]
+        public ActionResult<Stu> DDPost([FromBody]Stu stu) {
+            return stu;
         }
 
         [Swashbuckle.AspNetCore.Annotations.SwaggerIgnore]
@@ -141,11 +167,27 @@ namespace DotNetDevWebTips.Apis {
     }
 }
 
+/// <summary>
+/// 真的学生
+/// </summary>
 public class Stu {
+    /// <summary> 
+    /// 名字
+    /// </summary>
     public string name { get; set; } = "李四";
-
+    /// <summary>
+    /// 多大了
+    /// </summary>
     public int age { get; set; } = 0;
-
+    /// <summary>
+    /// 尺寸
+    /// </summary>
     public int size { get; set; } = 11;
 
+}
+
+struct userRecord {
+    public string Name;
+    public string Id;
+    public int PLM_ITERATION;
 }
