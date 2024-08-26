@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNetDevWebTips</name>
+    </assembly>
+    <members>
+        <member name="T:Stu">
+            <summary>
+            真的学生
+            </summary>
+        </member>
+        <member name="P:Stu.name">
+            <summary> 
+            名字
+            </summary>
+        </member>
+        <member name="P:Stu.age">
+            <summary>
+            多大了
+            </summary>
+        </member>
+        <member name="P:Stu.size">
+            <summary>
+            尺寸
+            </summary>
+        </member>
+    </members>
+</doc>
