@@ -22,7 +22,7 @@ jobs:
 
     - name: Build and publish .NET project
       run: |
-        dotnet build "./DotNetDevWebTips.csproj" --no-restore
+        dotnet build "./DotNetDevWebTips/DotNetDevWebTips.csproj" --no-restore
         dotnet publish -c Release -o out
 
     - name: Build Docker image
