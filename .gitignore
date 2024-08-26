@@ -1,0 +1,21 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/.vs/DotNetDevTips/FileContentIndex
+/.vs
+/DotNetDevDB/obj
+/DotNetDevWebTips/obj
+/DotNetDevTips/obj
+/DotNetDevDB/bin/Debug/net9.0
+/DotNetDevWebTips/bin/Debug/net9.0
+/TestProject/bin
+/TestProject/obj
+/DotNetDevWebTips/bin/Release/net9.0
+/DotNetDevTips/bin
+/DotNetDevDB/bin/Release/net9.0
+/BenchMark/bin
+/BenchMark/obj
+/BenchMark/Properties/PublishProfiles
+/AppHost/bin/Debug/net8.0
+/AppHost/obj
