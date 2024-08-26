@@ -1,0 +1,28 @@
+name: Deploy to Windows Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to Windows Server via SSH
+      uses: appleboy/ssh-action@v0.1.11
+      with:
+        host: 192.168.2.76
+        username: yiban
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDGiyMP8/tFkGsaZCBf15S5YUma5PvCtOoch0aii+XICSCNnWACIK2oSQklmJmMTRgLcsoIrGsDyEbdZ58vq3wr2hxvXRfoLWAvCKdMdTMpiGltslb89JdSjkF2u+8o3tzrTPzrhnTeb97IdDqLTqwqXOiWu1lyPI5p9BwI9+gXI9OAM8299Ut3AxAMBElwpVZksEjerali/tVpPS5p7Cw8XkU7owbbsnZI8c0bwTGPUKRguSbTFMdfX12rRf3fOSMt/rWxFgb7lv9gotyEaJIUAD4z3LO52LZfeHvJo2Kp5ZGd6cwxAEKN+ttHwDFlwDLSw9QRcxtWsLg4wGtbQA49UGQ62YbvGI45WjAT60Zz3HXsvOGwkN3tkAIG5RI9L2XKwgBmtho1WcWN/DHU7lroQaHa6Khotl+aZJi3WyIfULfjWj9UgXgpGzA9sr3fN+LZVAA7NV3rR40G+cdgOrna0VgCqmfk3sP4dKfsAMSQ0FX+xg8wtviU+CnHL/CkQGiHpoiwLO0lxO64JmNO7syxgBN0OQWpbA9qBugsK20ePaI9Ci0P+u2+IAxCmn0aUdywRCA5YjNQT3A1B59xRMYdTXr+Pi63rFrOXH0K5BiGPcUA7WMQAd28N2/vi9NwQXGEZCRmCKO1mpBfzgogLSQkKAOKKAT2EMn6FJ1eRdcFqQ== chentao@yiban.com
+        script: |
+          echo "Deploying application to Windows server..."
+          # 在此执行 Windows 部署命令，如 Docker 拉取和运行
+          docker pull test/your-image-name:latest
+          docker stop your-container-name || true
+          docker rm your-container-name || true
+          docker run -d --name your-container-name -p 80:80 ${{ secrets.DOCKER_HUB_USERNAME }}/your-image-name:latest
