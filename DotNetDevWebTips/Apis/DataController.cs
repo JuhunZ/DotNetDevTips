@@ -6,8 +6,11 @@ using EFCore.BulkExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using System.Data.SqlClient;
+using System.Reflection.Metadata;
 using System.Transactions;
 
 namespace DotNetDevWebTips.Apis {
@@ -84,7 +87,7 @@ namespace DotNetDevWebTips.Apis {
                 blog = modelContext.Blogs.First();
                 blog.Title = "鬼觉神知";
                 modelContext.Update(blog);//因为注入上下文时禁用了对象追踪
-
+                modelContext.Database.GetDbConnection().Execute("");
                 {
                     var blob = new Blog() {
                         BlogId = 3
@@ -143,15 +146,36 @@ namespace DotNetDevWebTips.Apis {
         }
 
         [HttpPost]
-        public ActionResult<Stu> DDPost([FromBody]Stu stu) {
-            return stu;
+        public ActionResult<Stu> DDPost([FromBody]Stu stu, [FromServices] ModelContext modelContext) {
+           var tran= modelContext.Database.BeginTransaction().GetDbTransaction();
+            var stud = modelContext.Database.SqlQuery<Stu>(@$"select '里斯' as Name,1 age,1 size,getdate() birthday ");
+            var blog = modelContext.Blogs.FirstOrDefault();
+            if (blog == null)
+                blog = new Blog() { 
+                 BlogId=1,
+                  Url="baidu.com",
+                   Title="baidu"
+                };
+            blog.Url += "?a=1";
+            modelContext.Blogs.Add(blog);
+            var fb=  modelContext.Find<Blog>(1);
+
+            string connectionString = "Data Source=127.0.0.1,1433;Initial Catalog=Demo;Persist Security Info=True;User ID=sa;password=123;TrustServerCertificate=true;MultipleActiveResultSets=True";
+            using var connection = new SqlConnection(connectionString);
+            modelContext.Database.GetDbConnection().Execute("update blogs set Url='baidu,com'",transaction: tran);
+
+            modelContext.SaveChanges();
+            modelContext.Database.CommitTransaction();
+
+            tran.Commit();
+            return new Stu();
         }
 
         [Swashbuckle.AspNetCore.Annotations.SwaggerIgnore]
         public async Task<int> GetCompile([FromServices] ModelContext modelContext) {
             var idSum = 0;
             await foreach (var blog in _compiledQuery(modelContext)) {
-                idSum += blog.Id;
+                idSum += blog.Id.Value;
             }
             return idSum;
         }
@@ -160,7 +184,7 @@ namespace DotNetDevWebTips.Apis {
         public async Task<int> GetCommon([FromServices] ModelContext modelContext) {
             var idSum = 0;
             foreach (var item in await modelContext.Students.Where(b => b.Name.StartsWith("张")).ToListAsync()) {
-                idSum += item.Id;
+                idSum += item.Id.Value;
             }
             return idSum;
         }
@@ -174,15 +198,18 @@ public class Stu {
     /// <summary> 
     /// 名字
     /// </summary>
+    [JsonProperty("NAMES")]
     public string name { get; set; } = "李四";
     /// <summary>
     /// 多大了
     /// </summary>
-    public int age { get; set; } = 0;
+    public int? age { get; set; } = 0;
     /// <summary>
     /// 尺寸
     /// </summary>
-    public int size { get; set; } = 11;
+    public int? size { get; set; } = 11;
+
+    public DateTime? birthday { get; set; }
 
 }
 

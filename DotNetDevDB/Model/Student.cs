@@ -12,7 +12,7 @@ namespace DotNetDevDB.Model {
         /// <summary>
         /// 编号
         /// </summary>
-        public int Id { get; set; }
+        public int? Id { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -28,7 +28,7 @@ namespace DotNetDevDB.Model {
         /// <summary>
         /// 年龄
         /// </summary>
-        public int Age { get; set; }
+        public int? Age { get; set; }
         /// <summary>
         /// 性别
         /// </summary>

@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Hosting;
 using System.Text;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.ComponentModel;
 //将所有控制器加上ApiController特性,加上后所有控制器(不止接口)都要加rote特性
 //[assembly: ApiController]
 
@@ -29,7 +32,13 @@ builder.Services.AddLogDashboard();
 
 // Add services to the container.
 //builder.Services.AddRazorPages();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNewtonsoftJson(options => {
+    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+
+});
+
+//builder.Services.AddProblemDetails();
+
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("Demo", new OpenApiInfo { Title = "My API", Version = "v10" });
     c.SwaggerDoc("Data", new OpenApiInfo { Title = "My API", Version = "v10" });
