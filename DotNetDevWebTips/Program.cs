@@ -16,7 +16,7 @@ using Newtonsoft.Json.Converters;
 using System.ComponentModel;
 //将所有控制器加上ApiController特性,加上后所有控制器(不止接口)都要加rote特性
 //[assembly: ApiController]
-
+111
 Log.Logger = new LoggerConfiguration()
         .MinimumLevel.Warning()
         .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
